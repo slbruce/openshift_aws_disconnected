@@ -47,48 +47,6 @@ variable "bastion_security_group_ingress_cidr" {
   default = "0.0.0.0/0"
 }
 
-variable "registry_ip" {
-  description = "IP address of registry node.  Has to be within the public_subnet range"
-  type = string
-  default = "10.0.0.6"
-}
-
-variable "bootstrap_ip" {
-  description = "IP address of bootstrap node.  Has to be within the private_subnet_a_cidr range"
-  type = string
-  default = "10.0.0.133"
-}
-
-variable "master0_ip" {
-  description = "IP address of master0 node.  Has to be within the private_subnet_a_cidr range"
-  type = string
-  default = "10.0.0.132"
-}
-
-variable "master1_ip" {
-  description = "IP address of master1 node.  Has to be within the private_subnet_b_cidr range"
-  type = string
-  default = "10.0.0.20"
-}
-
-variable "master2_ip" {
-  description = "IP address of master1 node.  Has to be within the private_subnet_c_cidr range"
-  type = string
-  default = "10.0.0.36"
-}
-
-variable "worker0_ip" {
-  description = "IP address of worker0 node.  Has to be within the private_subnet_a_cidr range"
-  type = string
-  default = "10.0.0.140"
-}
-
-variable "worker1_ip" {
-  description = "IP address of worker1 node.  Has to be within the private_subnet_c_cidr range"
-  type = string
-  default = "10.0.0.40"
-}
-
 variable "dns_domain" {
   description = "The domain that the cluster is installed"
   type = string

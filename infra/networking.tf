@@ -58,6 +58,10 @@ resource "aws_subnet" "private_subnet_1" {
   availability_zone = "${var.region}a"
 }
 
+output "private_subnet_1_id" {
+  value = aws_subnet.private_subnet_1.id
+}
+
 # Private Subnet (Guest Machines)
 resource "aws_subnet" "private_subnet_2" {
   vpc_id     = aws_vpc.installation_vpc.id

@@ -108,7 +108,7 @@ resource "aws_route53_record" "bootstrap" {
   name    = "bootstrap.${local.fqdn}"
   type    = "A"
   ttl     = 300
-  records = [var.bootstrap_ip]
+  records = [data.terraform_remote_state.shared.outputs.bootstrap_ip]
 }
 
 resource "aws_route53_record" "master0" {
@@ -116,7 +116,7 @@ resource "aws_route53_record" "master0" {
   name    = "master0.${local.fqdn}"
   type    = "A"
   ttl     = 300
-  records = [var.master0_ip]
+  records = [data.terraform_remote_state.shared.outputs.master0_ip]
 }
 
 resource "aws_route53_record" "master1" {
@@ -124,7 +124,7 @@ resource "aws_route53_record" "master1" {
   name    = "master1.${local.fqdn}"
   type    = "A"
   ttl     = 300
-  records = [var.master1_ip]
+  records = [data.terraform_remote_state.shared.outputs.master1_ip]
 }
 
 resource "aws_route53_record" "master2" {
@@ -132,7 +132,7 @@ resource "aws_route53_record" "master2" {
   name    = "master2.${local.fqdn}"
   type    = "A"
   ttl     = 300
-  records = [var.master2_ip]
+  records = [data.terraform_remote_state.shared.outputs.master2_ip]
 }
 
 resource "aws_route53_record" "worker0" {
@@ -140,7 +140,7 @@ resource "aws_route53_record" "worker0" {
   name    = "worker0.${local.fqdn}"
   type    = "A"
   ttl     = 300
-  records = [var.worker0_ip]
+  records = [data.terraform_remote_state.shared.outputs.worker0_ip]
 }
 
 resource "aws_route53_record" "worker1" {
@@ -148,7 +148,7 @@ resource "aws_route53_record" "worker1" {
   name    = "worker1.${local.fqdn}"
   type    = "A"
   ttl     = 300
-  records = [var.worker1_ip]
+  records = [data.terraform_remote_state.shared.outputs.worker1_ip]
 }
 
 resource "aws_route53_record" "registry" {
@@ -156,7 +156,7 @@ resource "aws_route53_record" "registry" {
   name    = "registry.${var.dns_domain}"
   type    = "A"
   ttl     = 300
-  records = [var.registry_ip]
+  records = [data.terraform_remote_state.shared.outputs.registry_ip]
 }
 
 resource "aws_route53_zone" "reverse" {
@@ -171,7 +171,7 @@ resource "aws_route53_zone" "reverse" {
 
 resource "aws_route53_record" "master0_reverse" {
   zone_id = aws_route53_zone.reverse.zone_id
-  name    = "${slice(split(".", var.master0_ip), 3, 4)[0]}.${local.reverse_domain}"
+  name    = "${slice(split(".", data.terraform_remote_state.shared.outputs.master0_ip), 3, 4)[0]}.${local.reverse_domain}"
   type    = "PTR"
   ttl     = 300
   records = [aws_route53_record.master0.fqdn]
@@ -179,7 +179,7 @@ resource "aws_route53_record" "master0_reverse" {
 
 resource "aws_route53_record" "master1_reverse" {
   zone_id = aws_route53_zone.reverse.zone_id
-  name    = "${slice(split(".", var.master1_ip), 3, 4)[0]}.${local.reverse_domain}"
+  name    = "${slice(split(".", data.terraform_remote_state.shared.outputs.master1_ip), 3, 4)[0]}.${local.reverse_domain}"
   type    = "PTR"
   ttl     = 300
   records = [aws_route53_record.master1.fqdn]
@@ -187,7 +187,7 @@ resource "aws_route53_record" "master1_reverse" {
 
 resource "aws_route53_record" "master2_reverse" {
   zone_id = aws_route53_zone.reverse.zone_id
-  name    = "${slice(split(".", var.master2_ip), 3, 4)[0]}.${local.reverse_domain}"
+  name    = "${slice(split(".", data.terraform_remote_state.shared.outputs.master2_ip), 3, 4)[0]}.${local.reverse_domain}"
   type    = "PTR"
   ttl     = 300
   records = [aws_route53_record.master2.fqdn]
@@ -195,7 +195,7 @@ resource "aws_route53_record" "master2_reverse" {
 
 resource "aws_route53_record" "bootstrap_reverse" {
   zone_id = aws_route53_zone.reverse.zone_id
-  name    = "${slice(split(".", var.bootstrap_ip), 3, 4)[0]}.${local.reverse_domain}"
+  name    = "${slice(split(".", data.terraform_remote_state.shared.outputs.bootstrap_ip), 3, 4)[0]}.${local.reverse_domain}"
   type    = "PTR"
   ttl     = 300
   records = [aws_route53_record.bootstrap.fqdn]
@@ -203,7 +203,7 @@ resource "aws_route53_record" "bootstrap_reverse" {
 
 resource "aws_route53_record" "worker0_reverse" {
   zone_id = aws_route53_zone.reverse.zone_id
-  name    = "${slice(split(".", var.worker0_ip), 3, 4)[0]}.${local.reverse_domain}"
+  name    = "${slice(split(".", data.terraform_remote_state.shared.outputs.worker0_ip), 3, 4)[0]}.${local.reverse_domain}"
   type    = "PTR"
   ttl     = 300
   records = [aws_route53_record.worker0.fqdn]
@@ -211,7 +211,7 @@ resource "aws_route53_record" "worker0_reverse" {
 
 resource "aws_route53_record" "worker1_reverse" {
   zone_id = aws_route53_zone.reverse.zone_id
-  name    = "${slice(split(".", var.worker1_ip), 3, 4)[0]}.${local.reverse_domain}"
+  name    = "${slice(split(".", data.terraform_remote_state.shared.outputs.worker1_ip), 3, 4)[0]}.${local.reverse_domain}"
   type    = "PTR"
   ttl     = 300
   records = [aws_route53_record.worker1.fqdn]
