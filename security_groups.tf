@@ -337,5 +337,4 @@ resource "aws_vpc_security_group_ingress_rule" "apps_lb_sg_ingress_443" {
   ip_protocol       = "tcp"
 
   description = "Port 443 for application ingress"
-
 }
