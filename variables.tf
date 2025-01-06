@@ -64,3 +64,15 @@ variable "master2_ip" {
   type = string
   default = "10.0.0.36"
 }
+
+variable "worker0_ip" {
+  description = "IP address of worker0 node.  Has to be within the private_subnet_a_cidr range"
+  type = string
+  default = "10.0.0.140"
+}
+
+variable "worker1_ip" {
+  description = "IP address of worker1 node.  Has to be within the private_subnet_c_cidr range"
+  type = string
+  default = "10.0.0.40"
+}
