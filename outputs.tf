@@ -1,3 +1,7 @@
+output "region" {
+  value = var.region
+}
+
 output "registry_ip" {
   value = var.registry_ip
 }

@@ -1,9 +1,3 @@
-variable "region" {
-  description = "The AWS region to deploy resources"
-  type        = string
-  default     = "eu-west-1"
-}
-
 variable "bastion_ami" {
   description = "The ami of the bastion instance"
   type        = string

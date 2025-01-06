@@ -80,13 +80,17 @@ resource "aws_security_group" "api_lg_sg" {
   description = "SG for cluster LB"
 }
 
+output "api_lg_sg_id" {
+  value = aws_security_group.api_lg_sg.id
+}
+
 resource "aws_vpc_security_group_egress_rule" "api_lg_sg_egress" {
   security_group_id = aws_security_group.api_lg_sg.id
   cidr_ipv4         = "0.0.0.0/0"
   ip_protocol       = "-1"
 }
 
-resource "aws_vpc_security_group_ingress_rule" "registry_sg_ingress_22623_master0" {
+resource "aws_vpc_security_group_ingress_rule" "api_lg_sg_ingress_22623_master0" {
   security_group_id = aws_security_group.api_lg_sg.id
   cidr_ipv4         = var.private_subnet_a_cidr
   from_port         = 22623
@@ -97,7 +101,7 @@ resource "aws_vpc_security_group_ingress_rule" "registry_sg_ingress_22623_master
   }
 }
 
-resource "aws_vpc_security_group_ingress_rule" "registry_sg_ingress_22623_master1" {
+resource "aws_vpc_security_group_ingress_rule" "api_lg_sg_ingress_22623_master1" {
   security_group_id = aws_security_group.api_lg_sg.id
   cidr_ipv4         = var.private_subnet_b_cidr
   from_port         = 22623
@@ -108,7 +112,7 @@ resource "aws_vpc_security_group_ingress_rule" "registry_sg_ingress_22623_master
   }
 }
 
-resource "aws_vpc_security_group_ingress_rule" "registry_sg_ingress_22623_master2" {
+resource "aws_vpc_security_group_ingress_rule" "api_lg_sg_ingress_22623_master2" {
   security_group_id = aws_security_group.api_lg_sg.id
   cidr_ipv4         = var.private_subnet_c_cidr
   from_port         = 22623
@@ -119,7 +123,7 @@ resource "aws_vpc_security_group_ingress_rule" "registry_sg_ingress_22623_master
   }
 }
 
-resource "aws_vpc_security_group_ingress_rule" "registry_sg_ingress_6443" {
+resource "aws_vpc_security_group_ingress_rule" "api_lg_sg_ingress_6443" {
   security_group_id = aws_security_group.api_lg_sg.id
   cidr_ipv4         = var.vpc_cidr
   from_port         = 6443
@@ -137,6 +141,10 @@ resource "aws_security_group" "all_machine_sg" {
     Name = "${var.vpc_prefix}all_machine_sg"
   }
   description = "security group for all cluster communications"
+}
+
+output "all_machine_sg_id" {
+  value = aws_security_group.all_machine_sg.id
 }
 
 resource "aws_vpc_security_group_egress_rule" "all_machine_sg_egress" {
@@ -282,6 +290,10 @@ resource "aws_security_group" "control_plane_sg" {
   description = "SG For control plane"
 }
 
+output "control_plane_sg_id" {
+  value = aws_security_group.control_plane_sg.id
+}
+
 resource "aws_vpc_security_group_egress_rule" "control_plane_sg_egress" {
   security_group_id = aws_security_group.control_plane_sg.id
   cidr_ipv4         = "0.0.0.0/0"
@@ -317,6 +329,10 @@ resource "aws_security_group" "apps_lb_sg" {
     Name = "${var.vpc_prefix}apps_lb_sg"
   }
   description = "sg for application ingress"
+}
+
+output "apps_lb_sg_id" {
+  value = aws_security_group.apps_lb_sg.id
 }
 
 resource "aws_vpc_security_group_egress_rule" "apps_lb_sg_egress" {

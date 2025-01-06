@@ -1,9 +1,3 @@
-variable "region" {
-  description = "The AWS region to deploy resources"
-  type        = string
-  default     = "eu-west-1"
-}
-
 variable "vpc_prefix" {
   description = "Name of VPC"
   type = string

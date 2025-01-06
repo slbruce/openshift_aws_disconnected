@@ -20,7 +20,7 @@ resource "aws_internet_gateway" "igw" {
 resource "aws_subnet" "public_subnet" {
   vpc_id                  = aws_vpc.installation_vpc.id
   cidr_block              = var.public_subnet_cidr
-  availability_zone       = "${var.region}a"
+  availability_zone       = "${data.terraform_remote_state.shared.outputs.region}a"
   map_public_ip_on_launch = false
   tags = {
     Name = "${var.vpc_prefix}public-subnet"
@@ -55,7 +55,7 @@ resource "aws_subnet" "private_subnet_1" {
   tags = {
     Name = "${var.vpc_prefix}private-subnet-1"
   }
-  availability_zone = "${var.region}a"
+  availability_zone = "${data.terraform_remote_state.shared.outputs.region}a"
 }
 
 output "private_subnet_1_id" {
@@ -69,7 +69,11 @@ resource "aws_subnet" "private_subnet_2" {
   tags = {
     Name = "${var.vpc_prefix}private-subnet-2"
   }
-  availability_zone = "${var.region}b"
+  availability_zone = "${data.terraform_remote_state.shared.outputs.region}b"
+}
+
+output "private_subnet_2_id" {
+  value = aws_subnet.private_subnet_2.id
 }
 
 # Private Subnet (Guest Machines)
@@ -79,7 +83,11 @@ resource "aws_subnet" "private_subnet_3" {
   tags = {
     Name = "${var.vpc_prefix}private-subnet-3"
   }
-  availability_zone = "${var.region}c"
+  availability_zone = "${data.terraform_remote_state.shared.outputs.region}c"
+}
+
+output "private_subnet_3_id" {
+  value = aws_subnet.private_subnet_3.id
 }
 
 # Private Route Table (No Internet Access)

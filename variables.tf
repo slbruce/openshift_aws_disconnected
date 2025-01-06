@@ -1,3 +1,9 @@
+variable "region" {
+  description = "The AWS region to deploy resources"
+  type        = string
+  default     = "eu-west-1"
+}
+
 variable "registry_ip" {
   description = "IP address of registry node.  Has to be within the private_subnet_a_cidr range"
   type = string

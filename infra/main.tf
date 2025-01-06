@@ -7,13 +7,13 @@ terraform {
   }
 }
 
-provider "aws" {
-  region = var.region
-}
-
 data "terraform_remote_state" "shared" {
   backend = "local"
   config = {
     path = "../terraform.tfstate"
   }
+}
+
+provider "aws" {
+  region = data.terraform_remote_state.shared.outputs.region
 }
