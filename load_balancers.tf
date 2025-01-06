@@ -15,13 +15,13 @@ resource "aws_lb_target_group" "api_lb_tg_6443" {
   vpc_id      = aws_vpc.installation_vpc.id
 
   health_check {
-    enabled = true
-    healthy_threshold = 2
+    enabled             = true
+    healthy_threshold   = 2
     unhealthy_threshold = 3
-    interval = 10
-    path = "/readyz"
-    protocol = "HTTPS"
-    matcher = 200
+    interval            = 10
+    path                = "/readyz"
+    protocol            = "HTTPS"
+    matcher             = 200
   }
 }
 
@@ -112,7 +112,7 @@ resource "aws_lb_target_group" "apps_ingress_lb_tg_443" {
   vpc_id      = aws_vpc.installation_vpc.id
   stickiness {
     enabled = true
-    type = "source_ip"
+    type    = "source_ip"
   }
 }
 
@@ -146,6 +146,11 @@ resource "aws_lb_target_group" "apps_ingress_lb_tg_80" {
   protocol    = "TCP"
   target_type = "ip"
   vpc_id      = aws_vpc.installation_vpc.id
+
+  stickiness {
+    enabled = true
+    type    = "source_ip"
+  }
 }
 
 resource "aws_lb_target_group_attachment" "apps_ingress_lb_tg_80_to_worker0_attachment" {
