@@ -7,6 +7,10 @@ terraform {
   }
 }
 
+locals {
+  supervar = ""
+}
+
 provider "aws" {
   region = var.region
 }

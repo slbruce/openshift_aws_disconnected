@@ -7,6 +7,10 @@ resource "aws_security_group" "bastion_sg" {
   description = "os-install-initial-sg"
 }
 
+output "bastion_sg_id" {
+  value = aws_security_group.bastion_sg.id
+}
+
 resource "aws_vpc_security_group_egress_rule" "bastion_sg_egress" {
   security_group_id = aws_security_group.bastion_sg.id
   cidr_ipv4         = "0.0.0.0/0"
@@ -36,7 +40,7 @@ resource "aws_security_group" "registry_sg" {
     Name = "${var.vpc_prefix}registry-sg"
   }
   #description = "SG for registry"
-  description="CentOS Stream 9 (x86_64)-CS9-20230110-AutogenByAWSMP--1 created 2024-12-29T13:46:29.119Z"
+  description = "CentOS Stream 9 (x86_64)-CS9-20230110-AutogenByAWSMP--1 created 2024-12-29T13:46:29.119Z"
 }
 
 resource "aws_vpc_security_group_egress_rule" "registry_sg_egress" {

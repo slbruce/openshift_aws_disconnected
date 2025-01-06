@@ -27,6 +27,10 @@ resource "aws_subnet" "public_subnet" {
   }
 }
 
+output "public_subnet_id" {
+  value = aws_subnet.public_subnet.id
+}
+
 # Public Route Table
 resource "aws_route_table" "public_rt" {
   vpc_id = aws_vpc.installation_vpc.id
@@ -46,8 +50,8 @@ resource "aws_route_table_association" "public_subnet_association" {
 
 # Private Subnet (Guest Machines)
 resource "aws_subnet" "private_subnet_1" {
-  vpc_id            = aws_vpc.installation_vpc.id
-  cidr_block        = var.private_subnet_a_cidr
+  vpc_id     = aws_vpc.installation_vpc.id
+  cidr_block = var.private_subnet_a_cidr
   tags = {
     Name = "${var.vpc_prefix}private-subnet-1"
   }
@@ -56,8 +60,8 @@ resource "aws_subnet" "private_subnet_1" {
 
 # Private Subnet (Guest Machines)
 resource "aws_subnet" "private_subnet_2" {
-  vpc_id            = aws_vpc.installation_vpc.id
-  cidr_block        = var.private_subnet_b_cidr
+  vpc_id     = aws_vpc.installation_vpc.id
+  cidr_block = var.private_subnet_b_cidr
   tags = {
     Name = "${var.vpc_prefix}private-subnet-2"
   }
@@ -66,8 +70,8 @@ resource "aws_subnet" "private_subnet_2" {
 
 # Private Subnet (Guest Machines)
 resource "aws_subnet" "private_subnet_3" {
-  vpc_id            = aws_vpc.installation_vpc.id
-  cidr_block        = var.private_subnet_c_cidr
+  vpc_id     = aws_vpc.installation_vpc.id
+  cidr_block = var.private_subnet_c_cidr
   tags = {
     Name = "${var.vpc_prefix}private-subnet-3"
   }
