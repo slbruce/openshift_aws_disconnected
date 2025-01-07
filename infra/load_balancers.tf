@@ -3,8 +3,22 @@ resource "aws_lb" "api_lb" {
 
   internal           = true
   load_balancer_type = "network"
-  subnets            = [aws_subnet.private_subnet_1.id, aws_subnet.private_subnet_2.id, aws_subnet.private_subnet_3.id]
   security_groups    = [aws_security_group.api_lg_sg.id]
+
+  subnet_mapping {
+    subnet_id            = aws_subnet.private_subnet_1.id
+    private_ipv4_address = var.api_lb_subnet_1_ip
+  }
+
+  subnet_mapping {
+    subnet_id            = aws_subnet.private_subnet_2.id
+    private_ipv4_address = var.api_lb_subnet_2_ip
+  }
+
+  subnet_mapping {
+    subnet_id            = aws_subnet.private_subnet_3.id
+    private_ipv4_address = var.api_lb_subnet_3_ip
+  }
 }
 
 resource "aws_lb_target_group" "api_lb_tg_6443" {

@@ -8,50 +8,10 @@ resource "aws_vpc" "installation_vpc" {
   }
 }
 
-# Internet Gateway
-resource "aws_internet_gateway" "igw" {
-  vpc_id = aws_vpc.installation_vpc.id
-  tags = {
-    Name = "${var.vpc_prefix}igw"
-  }
-}
-
-# Public Subnet
-resource "aws_subnet" "public_subnet" {
-  vpc_id                  = aws_vpc.installation_vpc.id
-  cidr_block              = var.public_subnet_cidr
-  availability_zone       = "${data.terraform_remote_state.shared.outputs.region}a"
-  map_public_ip_on_launch = false
-  tags = {
-    Name = "${var.vpc_prefix}public-subnet"
-  }
-}
-
-output "public_subnet_id" {
-  value = aws_subnet.public_subnet.id
-}
-
-# Public Route Table
-resource "aws_route_table" "public_rt" {
-  vpc_id = aws_vpc.installation_vpc.id
-  route {
-    cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.igw.id
-  }
-  tags = {
-    Name = "${var.vpc_prefix}public-route-table"
-  }
-}
-
-resource "aws_route_table_association" "public_subnet_association" {
-  subnet_id      = aws_subnet.public_subnet.id
-  route_table_id = aws_route_table.public_rt.id
-}
-
-# Private Subnet (Guest Machines)
+# Private Subnet
 resource "aws_subnet" "private_subnet_1" {
   vpc_id     = aws_vpc.installation_vpc.id
-  cidr_block = var.private_subnet_a_cidr
+  cidr_block = var.private_subnet_1_cidr
   tags = {
     Name = "${var.vpc_prefix}private-subnet-1"
   }
@@ -62,10 +22,10 @@ output "private_subnet_1_id" {
   value = aws_subnet.private_subnet_1.id
 }
 
-# Private Subnet (Guest Machines)
+# Private Subnet
 resource "aws_subnet" "private_subnet_2" {
   vpc_id     = aws_vpc.installation_vpc.id
-  cidr_block = var.private_subnet_b_cidr
+  cidr_block = var.private_subnet_2_cidr
   tags = {
     Name = "${var.vpc_prefix}private-subnet-2"
   }
@@ -76,10 +36,10 @@ output "private_subnet_2_id" {
   value = aws_subnet.private_subnet_2.id
 }
 
-# Private Subnet (Guest Machines)
+# Private Subnet
 resource "aws_subnet" "private_subnet_3" {
   vpc_id     = aws_vpc.installation_vpc.id
-  cidr_block = var.private_subnet_c_cidr
+  cidr_block = var.private_subnet_3_cidr
   tags = {
     Name = "${var.vpc_prefix}private-subnet-3"
   }

@@ -4,7 +4,7 @@ resource "aws_security_group" "bastion_sg" {
   tags = {
     Name = "${var.vpc_prefix}bastion-sg"
   }
-  description = "os-install-initial-sg"
+  description = "bastion-sg"
 }
 
 output "bastion_sg_id" {
@@ -15,22 +15,6 @@ resource "aws_vpc_security_group_egress_rule" "bastion_sg_egress" {
   security_group_id = aws_security_group.bastion_sg.id
   cidr_ipv4         = "0.0.0.0/0"
   ip_protocol       = "-1"
-}
-
-resource "aws_vpc_security_group_ingress_rule" "bastion_sg_ingress_22" {
-  security_group_id = aws_security_group.bastion_sg.id
-  cidr_ipv4         = var.bastion_security_group_ingress_cidr
-  from_port         = 22
-  to_port           = 22
-  ip_protocol       = "tcp"
-}
-
-resource "aws_vpc_security_group_ingress_rule" "bastion_sg_ingress_3389" {
-  security_group_id = aws_security_group.bastion_sg.id
-  cidr_ipv4         = var.bastion_security_group_ingress_cidr
-  from_port         = 3389
-  to_port           = 3389
-  ip_protocol       = "tcp"
 }
 
 # Security Group for Registry
@@ -63,6 +47,17 @@ resource "aws_vpc_security_group_ingress_rule" "registry_sg_ingress_5000" {
   }
 }
 
+resource "aws_vpc_security_group_ingress_rule" "registry_sg_ingress_80" {
+  security_group_id = aws_security_group.registry_sg.id
+  cidr_ipv4         = var.vpc_cidr
+  from_port         = 80
+  to_port           = 80
+  ip_protocol       = "tcp"
+  tags = {
+    description = "Ingress for registry on port 80 used for getting ignition files"
+  }
+}
+
 resource "aws_vpc_security_group_ingress_rule" "registry_sg_ingress_22_from_bastion" {
   security_group_id            = aws_security_group.registry_sg.id
   referenced_security_group_id = aws_security_group.bastion_sg.id
@@ -92,7 +87,7 @@ resource "aws_vpc_security_group_egress_rule" "api_lg_sg_egress" {
 
 resource "aws_vpc_security_group_ingress_rule" "api_lg_sg_ingress_22623_master0" {
   security_group_id = aws_security_group.api_lg_sg.id
-  cidr_ipv4         = var.private_subnet_a_cidr
+  cidr_ipv4         = var.private_subnet_1_cidr
   from_port         = 22623
   to_port           = 22623
   ip_protocol       = "tcp"
@@ -103,7 +98,7 @@ resource "aws_vpc_security_group_ingress_rule" "api_lg_sg_ingress_22623_master0"
 
 resource "aws_vpc_security_group_ingress_rule" "api_lg_sg_ingress_22623_master1" {
   security_group_id = aws_security_group.api_lg_sg.id
-  cidr_ipv4         = var.private_subnet_b_cidr
+  cidr_ipv4         = var.private_subnet_2_cidr
   from_port         = 22623
   to_port           = 22623
   ip_protocol       = "tcp"
@@ -114,7 +109,7 @@ resource "aws_vpc_security_group_ingress_rule" "api_lg_sg_ingress_22623_master1"
 
 resource "aws_vpc_security_group_ingress_rule" "api_lg_sg_ingress_22623_master2" {
   security_group_id = aws_security_group.api_lg_sg.id
-  cidr_ipv4         = var.private_subnet_c_cidr
+  cidr_ipv4         = var.private_subnet_3_cidr
   from_port         = 22623
   to_port           = 22623
   ip_protocol       = "tcp"
@@ -341,9 +336,11 @@ resource "aws_vpc_security_group_egress_rule" "apps_lb_sg_egress" {
   ip_protocol       = "-1"
 }
 
+# ingress is marked as all ports - but since there is no route to this machine from outside the account
+# this is as if it is still disconnected
 resource "aws_vpc_security_group_ingress_rule" "apps_lb_sg_ingress_80" {
   security_group_id = aws_security_group.apps_lb_sg.id
-  cidr_ipv4         = var.vpc_cidr
+  cidr_ipv4         = "0.0.0.0/0"
   from_port         = 80
   to_port           = 80
   ip_protocol       = "tcp"
@@ -352,9 +349,11 @@ resource "aws_vpc_security_group_ingress_rule" "apps_lb_sg_ingress_80" {
 
 }
 
+# ingress is marked as all ports - but since there is no route to this machine from outside the account
+# this is as if it is still disconnected
 resource "aws_vpc_security_group_ingress_rule" "apps_lb_sg_ingress_443" {
   security_group_id = aws_security_group.apps_lb_sg.id
-  cidr_ipv4         = var.vpc_cidr
+  cidr_ipv4         = "0.0.0.0/0"
   from_port         = 443
   to_port           = 443
   ip_protocol       = "tcp"

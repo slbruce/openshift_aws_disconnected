@@ -105,7 +105,7 @@ resource "aws_instance" "worker_instances" {
   ami           = var.coreos_ami
   instance_type = var.compute_type
   subnet_id = (count.index == 0 ?
-  data.terraform_remote_state.infra.outputs.private_subnet_1_id : data.terraform_remote_state.infra.outputs.private_subnet_3_id)
+  data.terraform_remote_state.infra.outputs.private_subnet_2_id : data.terraform_remote_state.infra.outputs.private_subnet_3_id)
   private_ip = (count.index == 0 ? data.terraform_remote_state.shared.outputs.worker0_ip : data.terraform_remote_state.shared.outputs.worker1_ip)
   vpc_security_group_ids = [
     data.terraform_remote_state.infra.outputs.all_machine_sg_id,

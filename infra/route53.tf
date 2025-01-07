@@ -9,54 +9,6 @@ locals {
   reverse_domain = "${local.reversed}-in-addr.arpa"
 }
 
-data "aws_network_interface" "api_lb_subnet1" {
-  filter {
-    name   = "interface-type"
-    values = ["network_load_balancer"]
-  }
-  filter {
-    name   = "subnet-id"
-    values = [aws_subnet.private_subnet_1.id]
-  }
-
-  filter {
-    name   = "description"
-    values = ["ELB ${regex(".+/(net/${aws_lb.api_lb.name}/.+)", aws_lb.api_lb.arn)[0]}"]
-  }
-}
-
-data "aws_network_interface" "api_lb_subnet2" {
-  filter {
-    name   = "interface-type"
-    values = ["network_load_balancer"]
-  }
-  filter {
-    name   = "subnet-id"
-    values = [aws_subnet.private_subnet_2.id]
-  }
-
-  filter {
-    name   = "description"
-    values = ["ELB ${regex(".+/(net/${aws_lb.api_lb.name}/.+)", aws_lb.api_lb.arn)[0]}"]
-  }
-}
-
-data "aws_network_interface" "api_lb_subnet3" {
-  filter {
-    name   = "interface-type"
-    values = ["network_load_balancer"]
-  }
-  filter {
-    name   = "subnet-id"
-    values = [aws_subnet.private_subnet_3.id]
-  }
-
-  filter {
-    name   = "description"
-    values = ["ELB ${regex(".+/(net/${aws_lb.api_lb.name}/.+)", aws_lb.api_lb.arn)[0]}"]
-  }
-}
-
 resource "aws_route53_zone" "primary" {
   name          = var.dns_domain
   comment       = "Main domain for OpenShift Internal Cluster"
@@ -219,7 +171,7 @@ resource "aws_route53_record" "worker1_reverse" {
 
 resource "aws_route53_record" "api_lb_subnet1_reverse" {
   zone_id = aws_route53_zone.reverse.zone_id
-  name    = "${slice(split(".", data.aws_network_interface.api_lb_subnet1.private_ip), 3, 4)[0]}.${local.reverse_domain}"
+  name    = "${slice(split(".", var.api_lb_subnet_1_ip), 3, 4)[0]}.${local.reverse_domain}"
   type    = "PTR"
   ttl     = 300
   records = [aws_route53_record.api.fqdn, aws_route53_record.api-int.fqdn]
@@ -227,7 +179,7 @@ resource "aws_route53_record" "api_lb_subnet1_reverse" {
 
 resource "aws_route53_record" "api_lb_subnet2_reverse" {
   zone_id = aws_route53_zone.reverse.zone_id
-  name    = "${slice(split(".", data.aws_network_interface.api_lb_subnet2.private_ip), 3, 4)[0]}.${local.reverse_domain}"
+  name    = "${slice(split(".", var.api_lb_subnet_2_ip), 3, 4)[0]}.${local.reverse_domain}"
   type    = "PTR"
   ttl     = 300
   records = [aws_route53_record.api.fqdn, aws_route53_record.api-int.fqdn]
@@ -235,7 +187,7 @@ resource "aws_route53_record" "api_lb_subnet2_reverse" {
 
 resource "aws_route53_record" "api_lb_subnet3_reverse" {
   zone_id = aws_route53_zone.reverse.zone_id
-  name    = "${slice(split(".", data.aws_network_interface.api_lb_subnet3.private_ip), 3, 4)[0]}.${local.reverse_domain}"
+  name    = "${slice(split(".", var.api_lb_subnet_3_ip), 3, 4)[0]}.${local.reverse_domain}"
   type    = "PTR"
   ttl     = 300
   records = [aws_route53_record.api.fqdn, aws_route53_record.api-int.fqdn]
