@@ -8,6 +8,15 @@ resource "aws_vpc" "installation_vpc" {
   }
 }
 
+resource "aws_vpc_dhcp_options" "installation_vpc_dhcp_options" {
+  domain_name = var.dns_domain
+}
+
+resource "aws_vpc_dhcp_options_association" "installation_vpc_dhcp_options_association" {
+  vpc_id          = aws_vpc.installation_vpc.id
+  dhcp_options_id = aws_vpc_dhcp_options.installation_vpc_dhcp_options.id
+}
+
 # Private Subnet
 resource "aws_subnet" "private_subnet_1" {
   vpc_id     = aws_vpc.installation_vpc.id
