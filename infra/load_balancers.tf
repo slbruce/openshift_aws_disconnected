@@ -134,7 +134,7 @@ resource "aws_lb_target_group_attachment" "apps_ingress_lb_tg_443_to_worker0_att
   target_group_arn  = aws_lb_target_group.apps_ingress_lb_tg_443.arn
   target_id         = data.terraform_remote_state.shared.outputs.worker0_ip
   port              = 443
-  availability_zone = aws_subnet.private_subnet_1.availability_zone
+  availability_zone = aws_subnet.private_subnet_2.availability_zone
 }
 
 resource "aws_lb_target_group_attachment" "apps_ingress_lb_tg_443_to_worker1_attachment" {
@@ -171,7 +171,7 @@ resource "aws_lb_target_group_attachment" "apps_ingress_lb_tg_80_to_worker0_atta
   target_group_arn  = aws_lb_target_group.apps_ingress_lb_tg_80.arn
   target_id         = data.terraform_remote_state.shared.outputs.worker0_ip
   port              = 80
-  availability_zone = aws_subnet.private_subnet_1.availability_zone
+  availability_zone = aws_subnet.private_subnet_2.availability_zone
 }
 
 resource "aws_lb_target_group_attachment" "apps_ingress_lb_tg_80_to_worker1_attachment" {

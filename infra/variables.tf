@@ -13,8 +13,7 @@ variable "vpc_cidr" {
 variable "private_subnet_1_cidr" {
   description = "CIDR block for private subnet 1"
   type = string
-  # to do change
-  default = "10.0.0.128/25"
+  default = "10.0.0.128/28"
 }
 
 variable "private_subnet_2_cidr" {
@@ -44,7 +43,7 @@ variable "cluster_name" {
 variable "api_lb_subnet_1_ip" {
   description = "IP address of the api lb in subnet1"
   type        = string
-  default     = "10.0.0.190"
+  default     = "10.0.0.140"
 }
 
 variable "api_lb_subnet_2_ip" {
