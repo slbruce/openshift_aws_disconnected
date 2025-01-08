@@ -5,7 +5,7 @@ variable "region" {
 }
 
 variable "bastion_ip" {
-  description = "IP address of registry node.  Has to be within the private_subnet_b_cidr range"
+  description = "IP address of bastion node.  Has to be within the private_subnet_b_cidr range"
   type        = string
   default     = "10.0.0.25"
 }
@@ -35,7 +35,7 @@ variable "master1_ip" {
 }
 
 variable "master2_ip" {
-  description = "IP address of master1 node.  Has to be within the private_subnet_c_cidr range"
+  description = "IP address of master2 node.  Has to be within the private_subnet_c_cidr range"
   type        = string
   default     = "10.0.0.36"
 }

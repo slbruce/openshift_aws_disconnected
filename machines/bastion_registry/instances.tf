@@ -14,10 +14,6 @@ resource "aws_instance" "bastion_instance" {
   }
 }
 
-output "bastion_instance_public_ip" {
-  value = aws_instance.bastion_instance.public_ip
-}
-
 resource "aws_instance" "registry_instance" {
   ami                         = var.registry_ami
   instance_type               = var.registry_type

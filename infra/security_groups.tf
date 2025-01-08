@@ -7,10 +7,6 @@ resource "aws_security_group" "bastion_sg" {
   description = "bastion-sg"
 }
 
-output "bastion_sg_id" {
-  value = aws_security_group.bastion_sg.id
-}
-
 resource "aws_vpc_security_group_egress_rule" "bastion_sg_egress" {
   security_group_id = aws_security_group.bastion_sg.id
   cidr_ipv4         = "0.0.0.0/0"
@@ -24,10 +20,6 @@ resource "aws_security_group" "registry_sg" {
     Name = "${var.vpc_prefix}registry-sg"
   }
   description = "SG for registry"
-}
-
-output "registry_sg_id" {
-  value = aws_security_group.registry_sg.id
 }
 
 resource "aws_vpc_security_group_egress_rule" "registry_sg_egress" {
@@ -73,10 +65,6 @@ resource "aws_security_group" "api_lg_sg" {
     Name = "${var.vpc_prefix}api-lb-sg"
   }
   description = "SG for cluster LB"
-}
-
-output "api_lg_sg_id" {
-  value = aws_security_group.api_lg_sg.id
 }
 
 resource "aws_vpc_security_group_egress_rule" "api_lg_sg_egress" {
@@ -136,10 +124,6 @@ resource "aws_security_group" "all_machine_sg" {
     Name = "${var.vpc_prefix}all_machine_sg"
   }
   description = "security group for all cluster communications"
-}
-
-output "all_machine_sg_id" {
-  value = aws_security_group.all_machine_sg.id
 }
 
 resource "aws_vpc_security_group_egress_rule" "all_machine_sg_egress" {
@@ -285,10 +269,6 @@ resource "aws_security_group" "control_plane_sg" {
   description = "SG For control plane"
 }
 
-output "control_plane_sg_id" {
-  value = aws_security_group.control_plane_sg.id
-}
-
 resource "aws_vpc_security_group_egress_rule" "control_plane_sg_egress" {
   security_group_id = aws_security_group.control_plane_sg.id
   cidr_ipv4         = "0.0.0.0/0"
@@ -324,10 +304,6 @@ resource "aws_security_group" "apps_lb_sg" {
     Name = "${var.vpc_prefix}apps_lb_sg"
   }
   description = "sg for application ingress"
-}
-
-output "apps_lb_sg_id" {
-  value = aws_security_group.apps_lb_sg.id
 }
 
 resource "aws_vpc_security_group_egress_rule" "apps_lb_sg_egress" {

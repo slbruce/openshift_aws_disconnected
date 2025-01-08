@@ -18,10 +18,6 @@ resource "aws_subnet" "private_subnet_1" {
   availability_zone = "${data.terraform_remote_state.shared.outputs.region}a"
 }
 
-output "private_subnet_1_id" {
-  value = aws_subnet.private_subnet_1.id
-}
-
 # Private Subnet
 resource "aws_subnet" "private_subnet_2" {
   vpc_id     = aws_vpc.installation_vpc.id
@@ -32,10 +28,6 @@ resource "aws_subnet" "private_subnet_2" {
   availability_zone = "${data.terraform_remote_state.shared.outputs.region}b"
 }
 
-output "private_subnet_2_id" {
-  value = aws_subnet.private_subnet_2.id
-}
-
 # Private Subnet
 resource "aws_subnet" "private_subnet_3" {
   vpc_id     = aws_vpc.installation_vpc.id
@@ -44,10 +36,6 @@ resource "aws_subnet" "private_subnet_3" {
     Name = "${var.vpc_prefix}private-subnet-3"
   }
   availability_zone = "${data.terraform_remote_state.shared.outputs.region}c"
-}
-
-output "private_subnet_3_id" {
-  value = aws_subnet.private_subnet_3.id
 }
 
 # Private Route Table (No Internet Access)
