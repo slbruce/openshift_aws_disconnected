@@ -1,0 +1,34 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "VisualEditor0",
+            "Effect": "Allow",
+            "Action": [
+                "elasticloadbalancing:DescribeLoadBalancerAttributes",
+                "elasticloadbalancing:DescribeLoadBalancers",
+                "elasticloadbalancing:DescribeTags",
+                "elasticloadbalancing:DescribeTargetGroups",
+                "elasticloadbalancing:DescribeTargetGroupAttributes",
+                "elasticloadbalancing:DeleteTargetGroup",
+                "elasticloadbalancing:DeleteLoadBalancer",
+                "elasticloadbalancing:CreateLoadBalancer",
+                "elasticloadbalancing:CreateTargetGroup",
+                "elasticloadbalancing:ModifyTargetGroupAttributes",
+                "elasticloadbalancing:CreateTargetGroup",
+                "elasticloadbalancing:ModifyLoadBalancerAttributes",
+                "elasticloadbalancing:RegisterTargets",
+                "elasticloadbalancing:CreateListener",
+                "elasticloadbalancing:DescribeListeners",
+                "elasticloadbalancing:DescribeListenerAttributes",
+                "elasticloadbalancing:DescribeTargetHealth",
+                "elasticloadbalancing:DeleteListener",
+                "elasticloadbalancing:ModifyListener",
+                "elasticloadbalancing:ModifyTargetGroup",
+                "elasticloadbalancing:SetSubnets",
+                "elasticloadbalancing:DeregisterTargets"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
