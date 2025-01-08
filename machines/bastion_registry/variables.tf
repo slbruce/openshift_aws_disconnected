@@ -10,17 +10,10 @@ variable "bastion_type" {
   default     = "t2.micro"
 }
 
-variable "bastion_key_name" {
-  description = "The key name to ssh into the instance.  This should be already created"
-  type        = string
-  default     = "bastion_key"
-}
-
-
 variable "bastion_volume_size" {
   description = "The volume size of the bastion machine"
   type        = number
-  default     = 80
+  default     = 30
 }
 
 variable "registry_ami" {
@@ -34,13 +27,6 @@ variable "registry_type" {
   type        = string
   default     = "t2.micro"
 }
-
-variable "registry_key_name" {
-  description = "The key name to ssh into the instance.  This should be already created"
-  type        = string
-  default     = "bastion_key"
-}
-
 
 variable "registry_volume_size" {
   description = "The volume size of the bastion machine"
