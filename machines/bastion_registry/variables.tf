@@ -1,7 +1,9 @@
 variable "bastion_ami" {
   description = "The ami of the bastion instance"
   type        = string
-  default     = "ami-009f51225716cb42f"
+  ## this is the fedora cloud instance available in eu-west-1
+  ## see https://fedoraproject.org/cloud/download#cloud_launch for up-to-date list
+  default     = "ami-0808759460bb0688c"
 }
 
 variable "bastion_type" {
@@ -19,7 +21,7 @@ variable "bastion_volume_size" {
 variable "registry_ami" {
   description = "The ami of the registry instance"
   type        = string
-  default     = "ami-009f51225716cb42f"
+  default     = "ami-0808759460bb0688c"
 }
 
 variable "registry_type" {
