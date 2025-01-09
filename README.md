@@ -25,7 +25,8 @@ These are the permissions that need to be added to added:
                 "iam:GetPolicyVersion",
                 "iam:ListPolicyVersions",
                 "iam:DeletePolicyVersion",
-                "iam:CreatePolicyVersion"
+                "iam:CreatePolicyVersion",
+                "iam:CreatePolicy"
             ],
             "Resource": "*"
         }

@@ -51,7 +51,11 @@
                 "ec2:AssociateDhcpOptions",
                 "ec2:DeleteVpc",
                 "ec2:ModifyVpcAttribute",
-                "ec2:AssociateRouteTable"
+                "ec2:AssociateRouteTable",
+                "ec2:CreateVpcEndpoint",
+                "ec2:DescribeVpcEndpoints",
+                "ec2:DescribePrefixLists",
+                "ec2:DeleteVpcEndpoints"
             ],
             "Resource": "*"
         }
