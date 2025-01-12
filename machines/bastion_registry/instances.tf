@@ -47,6 +47,7 @@ resource "aws_instance" "registry_instance" {
   vpc_security_group_ids      = [data.terraform_remote_state.infra.outputs.registry_sg_id]
   private_ip                  = data.terraform_remote_state.shared.outputs.registry_ip
   iam_instance_profile        = aws_iam_instance_profile.s3_instance_profile.id
+  key_name                    = var.registry_key_name
 
   tags = {
     Name = "registry-server"

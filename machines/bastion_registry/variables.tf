@@ -3,6 +3,11 @@ variable "bastion_key_name" {
   type = string
 }
 
+variable "registry_key_name" {
+  description = "A pre-existing key that will be used to connect to the registry from the bastion machine.  You will have to upload the private key to the bastion machine once it has been created"
+  type = string
+}
+
 variable "bastion_ami" {
   description = "The ami of the bastion instance"
   type        = string
