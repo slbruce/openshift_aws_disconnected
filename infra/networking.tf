@@ -10,6 +10,7 @@ resource "aws_vpc" "installation_vpc" {
 
 resource "aws_vpc_dhcp_options" "installation_vpc_dhcp_options" {
   domain_name = var.dns_domain
+  domain_name_servers = ["AmazonProvidedDNS"]
 }
 
 resource "aws_vpc_dhcp_options_association" "installation_vpc_dhcp_options_association" {
