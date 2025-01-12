@@ -55,7 +55,12 @@
                 "ec2:CreateVpcEndpoint",
                 "ec2:DescribeVpcEndpoints",
                 "ec2:DescribePrefixLists",
-                "ec2:DeleteVpcEndpoints"
+                "ec2:DeleteVpcEndpoints",
+                "ec2:CreateInstanceConnectEndpoint",
+                "ec2:DescribeInstanceConnectEndpoints",
+                "ec2:CreateNetworkInterface",
+                "ec2:DeleteTags",
+                "ec2-instance-connect:OpenTunnel"
             ],
             "Resource": "*"
         }

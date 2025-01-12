@@ -69,3 +69,9 @@ resource "aws_route_table_association" "private_subnet_association_3" {
   subnet_id      = aws_subnet.private_subnet_3.id
   route_table_id = aws_route_table.private_rt.id
 }
+
+resource "aws_ec2_instance_connect_endpoint" "endpoint_for_bastion" {
+  subnet_id = aws_subnet.private_subnet_2.id
+  security_group_ids = [aws_security_group.instance_connect_ep_sg.id]
+  preserve_client_ip = false
+}

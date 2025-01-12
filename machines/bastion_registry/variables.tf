@@ -1,3 +1,8 @@
+variable "bastion_key_name" {
+  description = "A pre-existing key that will be used to connect to the bastion using Instance Connect Endpoint"
+  type = string
+}
+
 variable "bastion_ami" {
   description = "The ami of the bastion instance"
   type        = string

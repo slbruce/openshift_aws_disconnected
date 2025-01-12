@@ -17,3 +17,8 @@ resource "aws_iam_policy" "s3_management" {
     name = "S3Management"
     policy = file("${path.cwd}/s3_management.json")
 }
+
+resource "aws_iam_policy" "iam_policy" {
+    name = "IAMPolicy"
+    policy = file("${path.cwd}/iam_management.json")
+}

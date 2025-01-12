@@ -1,3 +1,13 @@
+# Security Group for EC2 Instance Connect Endpoint
+resource "aws_security_group" "instance_connect_ep_sg" {
+  vpc_id = aws_vpc.installation_vpc.id
+  tags = {
+    Name = "${var.vpc_prefix}instance_connect_ep_sg"
+  }
+  description = "instance_connect_ep_sg"
+  name = "${var.vpc_prefix}instance_connect_ep_sg"
+}
+
 # Security Group for Bastion Host
 resource "aws_security_group" "bastion_sg" {
   vpc_id = aws_vpc.installation_vpc.id
@@ -5,12 +15,30 @@ resource "aws_security_group" "bastion_sg" {
     Name = "${var.vpc_prefix}bastion-sg"
   }
   description = "bastion-sg"
+  name = "${var.vpc_prefix}bastion-sg"
+}
+
+resource "aws_vpc_security_group_egress_rule" "instance_connect_ep_sg_egress" {
+  security_group_id            = aws_security_group.instance_connect_ep_sg.id
+  referenced_security_group_id = aws_security_group.bastion_sg.id
+  ip_protocol                  = "tcp"
+  from_port                    = 22
+  to_port                      = 22
+
 }
 
 resource "aws_vpc_security_group_egress_rule" "bastion_sg_egress" {
   security_group_id = aws_security_group.bastion_sg.id
-  cidr_ipv4         = "0.0.0.0/0"
+  cidr_ipv4         = var.vpc_cidr
   ip_protocol       = "-1"
+}
+
+resource "aws_vpc_security_group_ingress_rule" "bastion_sg_ingress" {
+  security_group_id            = aws_security_group.bastion_sg.id
+  referenced_security_group_id = aws_security_group.instance_connect_ep_sg.id
+  ip_protocol                  = "tcp"
+  from_port                    = 22
+  to_port                      = 22
 }
 
 # Security Group for Registry
@@ -20,11 +48,12 @@ resource "aws_security_group" "registry_sg" {
     Name = "${var.vpc_prefix}registry-sg"
   }
   description = "SG for registry"
+  name = "${var.vpc_prefix}registry-sg"
 }
 
 resource "aws_vpc_security_group_egress_rule" "registry_sg_egress" {
   security_group_id = aws_security_group.registry_sg.id
-  cidr_ipv4         = "0.0.0.0/0"
+  cidr_ipv4         = var.vpc_cidr
   ip_protocol       = "-1"
 }
 
@@ -65,11 +94,12 @@ resource "aws_security_group" "api_lg_sg" {
     Name = "${var.vpc_prefix}api-lb-sg"
   }
   description = "SG for cluster LB"
+  name = "${var.vpc_prefix}api-lb-sg"
 }
 
 resource "aws_vpc_security_group_egress_rule" "api_lg_sg_egress" {
   security_group_id = aws_security_group.api_lg_sg.id
-  cidr_ipv4         = "0.0.0.0/0"
+  cidr_ipv4         = var.vpc_cidr
   ip_protocol       = "-1"
 }
 
@@ -124,11 +154,12 @@ resource "aws_security_group" "all_machine_sg" {
     Name = "${var.vpc_prefix}all_machine_sg"
   }
   description = "security group for all cluster communications"
+  name = "${var.vpc_prefix}all_machine_sg"
 }
 
 resource "aws_vpc_security_group_egress_rule" "all_machine_sg_egress" {
   security_group_id = aws_security_group.all_machine_sg.id
-  cidr_ipv4         = "0.0.0.0/0"
+  cidr_ipv4         = var.vpc_cidr
   ip_protocol       = "-1"
 }
 
@@ -267,11 +298,12 @@ resource "aws_security_group" "control_plane_sg" {
     Name = "${var.vpc_prefix}control_plane_sg"
   }
   description = "SG For control plane"
+  name = "${var.vpc_prefix}control_plane_sg"
 }
 
 resource "aws_vpc_security_group_egress_rule" "control_plane_sg_egress" {
   security_group_id = aws_security_group.control_plane_sg.id
-  cidr_ipv4         = "0.0.0.0/0"
+  cidr_ipv4         = var.vpc_cidr
   ip_protocol       = "-1"
 }
 
@@ -304,11 +336,12 @@ resource "aws_security_group" "apps_lb_sg" {
     Name = "${var.vpc_prefix}apps_lb_sg"
   }
   description = "sg for application ingress"
+  name = "${var.vpc_prefix}apps_lb_sg"
 }
 
 resource "aws_vpc_security_group_egress_rule" "apps_lb_sg_egress" {
   security_group_id = aws_security_group.apps_lb_sg.id
-  cidr_ipv4         = "0.0.0.0/0"
+  cidr_ipv4         = var.vpc_cidr
   ip_protocol       = "-1"
 }
 
@@ -316,7 +349,7 @@ resource "aws_vpc_security_group_egress_rule" "apps_lb_sg_egress" {
 # this is as if it is still disconnected
 resource "aws_vpc_security_group_ingress_rule" "apps_lb_sg_ingress_80" {
   security_group_id = aws_security_group.apps_lb_sg.id
-  cidr_ipv4         = "0.0.0.0/0"
+  cidr_ipv4         = var.vpc_cidr
   from_port         = 80
   to_port           = 80
   ip_protocol       = "tcp"
@@ -329,7 +362,7 @@ resource "aws_vpc_security_group_ingress_rule" "apps_lb_sg_ingress_80" {
 # this is as if it is still disconnected
 resource "aws_vpc_security_group_ingress_rule" "apps_lb_sg_ingress_443" {
   security_group_id = aws_security_group.apps_lb_sg.id
-  cidr_ipv4         = "0.0.0.0/0"
+  cidr_ipv4         = var.vpc_cidr
   from_port         = 443
   to_port           = 443
   ip_protocol       = "tcp"

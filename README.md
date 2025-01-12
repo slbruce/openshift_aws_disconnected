@@ -11,7 +11,7 @@ Run `terraform apply` in the root directory to set up the shared enviornment var
 ### Terraform permissions
 Following the security principle of least-privileges it is recommended to give the terraform user only the permissions that it needs.  By running terraform in the `user_permissions` directory a number of policies will be created that can be added to the terraform user.  Obviously the user itself needs to have permissions to add policies (which can't be done from terraform itself for obvious reasons).  
 
-These are the permissions that need to be added to added:
+These are the permissions that need to be added:
 
 ``` json
 {
@@ -38,11 +38,12 @@ These are the permissions that need to be added to added:
 The following services are set up by running terraform in the infra folder
 
 1. VPC with three private subnets
-2. Security groups that match the fireall requirements needed by the OpenShift cluster installation
+2. Security groups that match the firewall requirements needed by the OpenShift cluster installation
 3. Two Network Elastic Load Balancers:
     1.  The `api.` and `api-int.` paths
     2.  The `*.apps` load balancer. 
 4. Two private hosted zones in AWS Route 53 to serve as the required DNS server
+5. AWS Instance Connect Endpoint.  In order to connect to the bastion server there needs to be some tunneling.  Unless you have a VPN that can connect to the private subnets this is the only way to connect to the bastion from outside.  This is the only 'cheat' but it is unfortunately unavoidable. 
 
 ### S3 Buckets
 In order to simulate a disconnected environment an S3 bucket is used as the transfer medium.  A VPC Gateway Endpoint is added to enable access from the private subnets.  Run terraform in the `transfer_bucket` folder.
