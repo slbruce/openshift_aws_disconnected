@@ -5,7 +5,18 @@
             "Sid": "VisualEditor0",
             "Effect": "Allow",
             "Action": [
-                "iam:CreateServiceLinkedRole"
+                "iam:CreateServiceLinkedRole",
+                "iam:CreateRole",
+                "iam:GetRole",
+                "iam:ListRolePolicies",
+                "iam:ListAttachedRolePolicies",
+                "iam:ListInstanceProfilesForRole",
+                "iam:DeleteRole",
+                "iam:CreateInstanceProfile",
+                "iam:GetInstanceProfile",
+                "iam:DeleteInstanceProfile",
+                "iam:AddRoleToInstanceProfile",
+                "iam:PassRole"
             ],
             "Resource": "*"
         }
