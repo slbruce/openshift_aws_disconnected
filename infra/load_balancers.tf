@@ -19,6 +19,10 @@ resource "aws_lb" "api_lb" {
     subnet_id            = aws_subnet.private_subnet_3.id
     private_ipv4_address = var.api_lb_subnet_3_ip
   }
+
+  lifecycle {
+    replace_triggered_by = [ aws_security_group.api_lg_sg ]
+  }
 }
 
 resource "aws_lb_target_group" "api_lb_tg_6443" {
@@ -116,6 +120,10 @@ resource "aws_lb" "apps_ingress_lb" {
   load_balancer_type = "network"
   subnets            = [aws_subnet.private_subnet_1.id, aws_subnet.private_subnet_3.id]
   security_groups    = [aws_security_group.apps_lb_sg.id]
+
+    lifecycle {
+    replace_triggered_by = [ aws_security_group.apps_lb_sg ]
+  }
 }
 
 resource "aws_lb_target_group" "apps_ingress_lb_tg_443" {

@@ -60,7 +60,8 @@
                 "ec2:DescribeInstanceConnectEndpoints",
                 "ec2:CreateNetworkInterface",
                 "ec2:DeleteTags",
-                "ec2-instance-connect:OpenTunnel"
+                "ec2-instance-connect:OpenTunnel",
+                "ec2:DeleteInstanceConnectEndpoint"
             ],
             "Resource": "*"
         }
