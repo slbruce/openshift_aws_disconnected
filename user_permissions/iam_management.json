@@ -16,7 +16,9 @@
                 "iam:GetInstanceProfile",
                 "iam:DeleteInstanceProfile",
                 "iam:AddRoleToInstanceProfile",
-                "iam:PassRole"
+                "iam:PassRole",
+                "iam:RemoveRoleFromInstanceProfile",
+                "iam:AttachRolePolicy"
             ],
             "Resource": "*"
         }

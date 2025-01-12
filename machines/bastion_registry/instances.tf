@@ -14,6 +14,12 @@ data "aws_iam_policy_document" "assume_role" {
 resource "aws_iam_role" "s3_instance_role" {
   name               = "s3_instance_role"
   assume_role_policy = data.aws_iam_policy_document.assume_role.json
+  
+}
+
+resource "aws_iam_role_policy_attachment" "s3_instance_role_policy_attach" {
+  role       = aws_iam_role.s3_instance_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess"
 }
 
 resource "aws_iam_instance_profile" "s3_instance_profile" {

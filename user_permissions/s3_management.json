@@ -21,7 +21,9 @@
                 "s3:GetEncryptionConfiguration",
                 "s3:GetBucketObjectLockConfiguration",
                 "s3:GetBucketTagging",
-                "s3:DeleteBucket"
+                "s3:DeleteBucket",
+                "s3:ListBucketVersions",
+                "s3:DeleteObjectVersion"
             ],
             "Resource": "*"
         }
