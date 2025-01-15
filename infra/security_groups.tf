@@ -41,6 +41,17 @@ resource "aws_vpc_security_group_ingress_rule" "bastion_sg_ingress" {
   to_port                      = 22
 }
 
+resource "aws_vpc_security_group_ingress_rule" "bastion_sg_ingress_80" {
+  security_group_id = aws_security_group.bastion_sg.id
+  cidr_ipv4         = var.vpc_cidr
+  from_port         = 8080
+  to_port           = 8080
+  ip_protocol       = "tcp"
+  tags = {
+    description = "Ingress for bastion on port 8080 used for getting ignition files"
+  }
+}
+
 # Security Group for Registry
 resource "aws_security_group" "registry_sg" {
   vpc_id = aws_vpc.installation_vpc.id
@@ -65,17 +76,6 @@ resource "aws_vpc_security_group_ingress_rule" "registry_sg_ingress_5000" {
   ip_protocol       = "tcp"
   tags = {
     description = "Ingress for registry on port 5000"
-  }
-}
-
-resource "aws_vpc_security_group_ingress_rule" "registry_sg_ingress_80" {
-  security_group_id = aws_security_group.registry_sg.id
-  cidr_ipv4         = var.vpc_cidr
-  from_port         = 80
-  to_port           = 80
-  ip_protocol       = "tcp"
-  tags = {
-    description = "Ingress for registry on port 80 used for getting ignition files"
   }
 }
 

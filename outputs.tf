@@ -2,30 +2,10 @@ output "region" {
   value = var.region
 }
 
-output "registry_ip" {
-  value = var.registry_ip
+output "dns_domain" {
+  value = var.dns_domain
 }
 
-output "bootstrap_ip" {
-  value = var.bootstrap_ip
-}
-
-output "master0_ip" {
-  value = var.master0_ip
-}
-
-output "master1_ip" {
-  value = var.master1_ip
-}
-
-output "master2_ip" {
-  value = var.master2_ip
-}
-
-output "worker0_ip" {
-  value = var.worker0_ip
-}
-
-output "worker1_ip" {
-  value = var.worker1_ip
+output "coreos_ami" {
+  value = var.coreos_ami
 }

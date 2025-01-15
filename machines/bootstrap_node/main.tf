@@ -21,6 +21,13 @@ data "terraform_remote_state" "shared" {
   }
 }
 
+data "terraform_remote_state" "bastion_registry" {
+  backend = "local"
+  config = {
+    path = "../bastion_registry/terraform.tfstate"
+  }
+}
+
 provider "aws" {
   region = data.terraform_remote_state.shared.outputs.region
 }

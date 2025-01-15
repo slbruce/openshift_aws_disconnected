@@ -28,32 +28,8 @@ variable "private_subnet_3_cidr" {
   default = "10.0.0.32/28"
 }
 
-variable "dns_domain" {
-  description = "The domain that the cluster is installed"
-  type = string
-  default = "example.internal"
-}
-
 variable "cluster_name" {
   description = "The name of the cluster.  Will be subdomain of dns_domain"
   type = string
   default = "ocp4"
-}
-
-variable "api_lb_subnet_1_ip" {
-  description = "IP address of the api lb in subnet1"
-  type        = string
-  default     = "10.0.0.140"
-}
-
-variable "api_lb_subnet_2_ip" {
-  description = "IP address of the api lb in subnet2"
-  type        = string
-  default     = "10.0.0.30"
-}
-
-variable "api_lb_subnet_3_ip" {
-  description = "IP address of the api lb in subnet2"
-  type        = string
-  default     = "10.0.0.45"
 }

@@ -9,7 +9,7 @@ resource "aws_vpc" "installation_vpc" {
 }
 
 resource "aws_vpc_dhcp_options" "installation_vpc_dhcp_options" {
-  domain_name = var.dns_domain
+  domain_name = data.terraform_remote_state.shared.outputs.dns_domain
   domain_name_servers = ["AmazonProvidedDNS"]
 }
 

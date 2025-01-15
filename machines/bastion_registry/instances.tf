@@ -51,7 +51,6 @@ resource "aws_instance" "registry_instance" {
   associate_public_ip_address = false
   subnet_id                   = data.terraform_remote_state.infra.outputs.private_subnet_1_id
   vpc_security_group_ids      = [data.terraform_remote_state.infra.outputs.registry_sg_id]
-  private_ip                  = data.terraform_remote_state.shared.outputs.registry_ip
   iam_instance_profile        = aws_iam_instance_profile.s3_instance_profile.id
   key_name                    = var.registry_key_name
 
@@ -63,4 +62,12 @@ resource "aws_instance" "registry_instance" {
     delete_on_termination = true
     volume_size           = var.registry_volume_size
   }
+}
+
+resource "aws_route53_record" "registry" {
+  zone_id = data.terraform_remote_state.infra.outputs.route53_primary_zone_id
+  name    = "registry.${data.terraform_remote_state.shared.outputs.dns_domain}"
+  type    = "A"
+  ttl     = 300
+  records = [aws_instance.registry_instance.private_ip]
 }
