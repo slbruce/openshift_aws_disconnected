@@ -6,7 +6,7 @@ This code is provided as a template that can be used to create the infrastructur
 The template can be created using terraform as is by using the default variables.  You are welcome to change as you see fit.
 
 ### Initial step
-Run `terraform apply` in the root directory to set up the shared enviornment variables.
+Run `terraform apply` in the root directory to set up the shared environment variables.
 
 ### Terraform permissions
 Following the security principle of least-privileges it is recommended to give the terraform user only the permissions that it needs.  By running terraform in the `user_permissions` directory a number of policies will be created that can be added to the terraform user.  Obviously the user itself needs to have permissions to add policies (which can't be done from terraform itself for obvious reasons).  
@@ -49,7 +49,7 @@ The following services are set up by running terraform in the infra folder
 In order to simulate a disconnected environment an S3 bucket is used as the transfer medium.  A VPC Gateway Endpoint is added to enable access from the private subnets.  Run terraform in the `transfer_bucket` folder.
 
 ## Machines
-The machines folder is split into two sub-folders; `bastion_registry` and `cluster-nodes`.
+The machines folder is split into four sub-folders; `bastion_registry`, `bootstrap-node`, `master-nodes` and `worker-nodes`.
 
 ### Bastion and Registry
 These should be created first as the last-pre-requisite for setting up the disconnected environment.  Theses machines are [Fedora Cloud Instances](https://fedoraproject.org/cloud/download#cloud_launch ) to ensure that podman is installed by default so the necessary container services can be run.
